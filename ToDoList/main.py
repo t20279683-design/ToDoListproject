@@ -35,14 +35,14 @@ def taskslist():
                         for task in tasks:
                             print(fr'-{task}')
         elif num == "4":
-            print("Program will [red]closed[/red] correctly!",'\n')
+            print("Program has been [red]closed[/red] correctly!",'\n')
             break
         elif num == "5":
-            with open("tasks.txt",'a') as f:
+            with open("tasks.txt",'w') as f:
                 f.write("Tasks:" + '\n')
                 for index,task in enumerate(tasks,start=1):
                     f.write(f"{index}. -{task} \n")
-            print(f"All will written to [red]tasks.txt[/red]! \n")
+            print(f"All has been written to [red]tasks.txt[/red]! \n")
         elif num == "6":
             with open('tasks.txt','r') as f:
                 print(f.read())
