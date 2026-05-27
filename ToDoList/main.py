@@ -27,7 +27,7 @@ def taskslist():
             else:
                 print("[red]Task not found[/red]")
         elif num == "3":
-                    if tasks == []:
+                    if tasks == [] or tasks == None:
                         print("[red]No tasks detected[/red]")
                     else:
                         for task in tasks:
@@ -42,16 +42,25 @@ def taskslist():
                     f.write(f"{index}. -{task} \n")
             print(f"All has been written to [red]tasks.txt[/red]! \n")
         elif num == "6":
-            
-            with open('tasks.txt','r',encoding='utf-8') as f:
-                c = f.read()
-            if c == None or c == "":
-                print(rf'[red]Tasks.txt has empty[/red]')
-            else:
-                print(c)
+            try:
+                with open('tasks.txt','r',encoding='utf-8') as f:
+                    c = f.read()
+                if c == None or c == "":
+                    print(rf'[red]Tasks.txt has empty[/red]')
+                else:
+                    print(c)
+            except (FileNotFoundError):
+                with open('tasks.txt','w') as f:
+                    f.write("")
+                print('[red]File tasks.txt no exists but it created now[/red]')
         elif num == "7":
-            with open('tasks.txt','r',encoding='utf-8') as f1:
-                c = f1.read()
+            try:
+                with open('tasks.txt','r',encoding='utf-8') as f1:
+                    c = f1.read()
+            except (FileNotFoundError):
+                with open('tasks.txt','w',encoding='utf-8') as f:
+                    f.write("")
+                print("[bright_green]File [red]tasks.txt[/red] has been created![/bright_green]")
             if c == None or c == "":
                 print('[red]tasks.txt[/red] has [blue]empty![/blue]')
             else:
