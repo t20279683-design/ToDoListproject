@@ -36,7 +36,7 @@ def taskslist():
             print("Program has been [red]closed[/red] correctly!",'\n')
             break
         elif num == "5":
-            with open("tasks.txt",'w') as f:
+            with open("tasks.txt",'w',encoding='utf-8') as f:
                 f.write("Tasks:" + '\n')
                 for index,task in enumerate(tasks,start=1):
                     f.write(f"{index}. -{task} \n")
