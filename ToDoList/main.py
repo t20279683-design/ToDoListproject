@@ -46,6 +46,8 @@ def taskslist():
             with open('tasks.txt','r',encoding='utf-8') as f:
                 c = f.read()
             if c == None or c == "":
+                print(rf'[red]Tasks.txt has empty[/red]')
+            else:
                 print(c)
         elif num == "7":
             with open('tasks.txt','r',encoding='utf-8') as f1:
