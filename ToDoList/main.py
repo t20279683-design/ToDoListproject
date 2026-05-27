@@ -1,6 +1,4 @@
 from rich import print
-import winreg
-import os
 def taskslist():
     tasks = []
     while True:
