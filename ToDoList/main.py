@@ -42,7 +42,7 @@ def taskslist():
                     f.write(f"{index}. -{task} \n")
             print(f"All has been written to [red]tasks.txt[/red]! \n")
         elif num == "6":
-            with open('tasks.txt','r') as f:
+            with open('tasks.txt','r',encoding='utf-8') as f:
                 print(f.read())
         elif num == "7":
             with open('tasks.txt','r',encoding='utf-8') as f1:
