@@ -1,4 +1,5 @@
 from rich import print
+import json
 def taskslist():
     tasks = []
     inp = input("Choose lang RU or EN (Русский или Английский): ")
@@ -13,6 +14,8 @@ def taskslist():
             print(r'6. [yellow]Show all tasks from file[/yellow]')
             print(r'7. [red]Clear file[/red]')
             print(r'8. [bright_green]Show our license[/bright_green]')
+            print(r'9. [green]Rename task[/green]')
+            print(r'10. [yellow]Export to JSON[/yellow]')
             num = input(r"Choice num: ")
             print("")
             if num == "1":
@@ -73,6 +76,20 @@ def taskslist():
                 with open("LICENSE",'r',encoding='utf-8') as f:
                     print("[red]License: [/red]")
                     print(f"[violet]{f.read()}[/violet]")
+            elif num == "9":
+                tt = input("What task you want to rename? ")
+                if tt in tasks:
+                    tt2 = input("Enter new name: ")
+                    ind = tasks.index(tt)
+                    tasks[ind] = tt2
+                    print(f"[violet]\"{tt}\"[/violet] Has been [red]renamed[/red] to [green]\"{tt2}\"![/green]")
+                else:
+                    print("[red]Task not found[/red]")
+            elif num == "10":
+                print('[bright_green]Exporting...[/bright_green]')
+                with open('tasks.json','w') as f:
+                    f.write(json.dumps(dict({"Tasks": tasks})))
+                print('[bright_green]successfully[/bright_green] [yellow]exported in tasks.json![/yellow]')
             else:
                 print("[red]Invalid command[/red]")
     elif inp.lower() == "ru":
@@ -86,6 +103,8 @@ def taskslist():
             print(r'6. [yellow]Показать все задачи из файла[/yellow]')
             print(r'7. [red]Очистить файл[/red]')
             print(r'8. [bright_green]Показать нашу лицензию[/bright_green]')
+            print(r'9. [green]Переименовать задачу[/green]')
+            print(r'10. [blue]Экспортировать[/blue] в [yellow]JSON[/yellow]')
             num = input(r"Выберите пункт: ")
             print("")
             if num == "1":
@@ -146,6 +165,20 @@ def taskslist():
                 with open("LICENSE",'r',encoding='utf-8') as f:
                     print("[red]Лицензия: [/red]")
                     print(f"[violet]{f.read()}[/violet]")
+            elif num == "9":
+                tt = input(r"Какую задачу вы хотите переименовать? ")
+                if tt in tasks:
+                    tt2 = input("Введите новое название: ")
+                    ind = tasks.index(tt)
+                    tasks[ind] = tt2
+                    print(f"[violet]\"{tt}\"[/violet] был [red]переименован[/red] в [green]\"{tt2}\"![/green]")
+                else:
+                    print("[red]Задача не найдена[/red]")
+            elif num == "10":
+                print('[bright_green]Экспортирую...[/bright_green]')
+                with open('tasks.json','w',encoding='utf-8') as f:
+                    f.write(json.dumps(dict({"Tasks": tasks})))
+                print('[bright_green]Успешно[/bright_green] [yellow]экспортировано в tasks.json![/yellow]')
             else:
                 print("[red]Неправильная команда[/red]")
 taskslist()
