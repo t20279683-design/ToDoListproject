@@ -1,5 +1,6 @@
 from rich import print
 import json
+import os
 def taskslist():
     tasks = []
     inp = input("Choose lang RU or EN (Русский или Английский): ")
@@ -16,6 +17,7 @@ def taskslist():
             print(r'8. [bright_green]Show our license[/bright_green]')
             print(r'9. [green]Rename task[/green]')
             print(r'10. [yellow]Export to JSON[/yellow]')
+            print(r'11. [blue]Load[/blue] [yellow]JSON[/yellow]')
             num = input(r"Choice num: ")
             print("")
             if num == "1":
@@ -90,6 +92,22 @@ def taskslist():
                 with open('tasks.json','w') as f:
                     f.write(json.dumps(dict({"Tasks": tasks})))
                 print('[bright_green]successfully[/bright_green] [yellow]exported in tasks.json![/yellow]')
+            elif num == "11":
+                file = input("Enter file you want to import from: ")
+                if os.path.exists(file):
+                    if file.endswith('.json'):
+                        try:
+                            with open(file, 'r', encoding='utf-8') as f:
+                                data = json.load(f)
+                                imported_tasks = data.get("Tasks", [])
+                            tasks.extend(imported_tasks)
+                            print(f"[green]Successfully imported {len(imported_tasks)} tasks from {file}![/green]")
+                        except json.JSONDecodeError:
+                            print("[red]Invalid JSON file![/red]")
+                    else:
+                        print('[red]File is not JSON[/red]')
+                else:
+                    print('[red]File does not exist[/red]')
             else:
                 print("[red]Invalid command[/red]")
     elif inp.lower() == "ru" or inp.lower() == 'русский':
@@ -105,6 +123,7 @@ def taskslist():
             print(r'8. [bright_green]Показать нашу лицензию[/bright_green]')
             print(r'9. [green]Переименовать задачу[/green]')
             print(r'10. [blue]Экспортировать[/blue] в [yellow]JSON[/yellow]')
+            print(r'11. [blue]Load[/blue] [yellow]JSON[/yellow]')
             num = input(r"Выберите пункт: ")
             print("")
             if num == "1":
@@ -177,8 +196,29 @@ def taskslist():
             elif num == "10":
                 print('[bright_green]Экспортирую...[/bright_green]')
                 with open('tasks.json','w',encoding='utf-8') as f:
-                    f.write(json.dumps(dict({"Tasks": tasks})))
+                    f.write(json.dumps(dict({
+                        "Tasks": tasks
+                        })))
                 print('[bright_green]Успешно[/bright_green] [yellow]экспортировано в tasks.json![/yellow]')
+
+            elif num == "11":
+                file = input("Enter file you want to import from: ")
+                if os.path.exists(file):
+                    if file.endswith('.json'):
+                        try:
+                            with open(file, 'r', encoding='utf-8') as f:
+                                data = json.load(f)
+                                imported_tasks = data.get("Tasks", [])
+                            tasks.extend(imported_tasks)
+                            print(f"[green]Успешно импортировано {len(imported_tasks)} задач из {file}![/green]")
+                        except json.JSONDecodeError:
+                            print("[red]Неправильный JSON файл![/red]")
+                    else:
+                        print('[red]Файл не JSON![/red]')
+                else:
+                    print('[red]Файл не существует[/red]')
             else:
                 print("[red]Неправильная команда[/red]")
+    else:
+        print("Неизвестный язык")
 taskslist()
