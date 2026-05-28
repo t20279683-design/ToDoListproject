@@ -89,8 +89,10 @@ def taskslist():
                     print("[red]Task not found[/red]")
             elif num == "10":
                 print('[bright_green]Exporting...[/bright_green]')
-                with open('tasks.json','w') as f:
-                    f.write(json.dumps(dict({"Tasks": tasks})))
+                with open('tasks.json','w',encoding='utf-8') as f:
+                    f.write(json.dumps(dict({
+                        "Tasks": tasks
+                        }),ensure_ascii=False))
                 print('[bright_green]successfully[/bright_green] [yellow]exported in tasks.json![/yellow]')
             elif num == "11":
                 file = input("Enter file you want to import from: ")
@@ -101,7 +103,7 @@ def taskslist():
                                 data = json.load(f)
                                 imported_tasks = data.get("Tasks", [])
                             tasks.extend(imported_tasks)
-                            print(f"[green]Successfully imported {len(imported_tasks)} tasks from {file}![/green]")
+                            print(f"[green]Successfully imported {len(imported_tasks)} tasks from {file}![/green]" if len(imported_tasks) > 0 else "[red]File has empty![/red]")
                         except json.JSONDecodeError:
                             print("[red]Invalid JSON file![/red]")
                     else:
@@ -123,7 +125,7 @@ def taskslist():
             print(r'8. [bright_green]Показать нашу лицензию[/bright_green]')
             print(r'9. [green]Переименовать задачу[/green]')
             print(r'10. [blue]Экспортировать[/blue] в [yellow]JSON[/yellow]')
-            print(r'11. [blue]Load[/blue] [yellow]JSON[/yellow]')
+            print(r'11. [blue]Импортировать[/blue] [yellow]JSON[/yellow]')
             num = input(r"Выберите пункт: ")
             print("")
             if num == "1":
@@ -198,11 +200,11 @@ def taskslist():
                 with open('tasks.json','w',encoding='utf-8') as f:
                     f.write(json.dumps(dict({
                         "Tasks": tasks
-                        })))
+                        }),ensure_ascii=False))
                 print('[bright_green]Успешно[/bright_green] [yellow]экспортировано в tasks.json![/yellow]')
 
             elif num == "11":
-                file = input("Enter file you want to import from: ")
+                file = input("Введите путь к файлу откуда вы хотите импортировать: ")
                 if os.path.exists(file):
                     if file.endswith('.json'):
                         try:
@@ -210,7 +212,7 @@ def taskslist():
                                 data = json.load(f)
                                 imported_tasks = data.get("Tasks", [])
                             tasks.extend(imported_tasks)
-                            print(f"[green]Успешно импортировано {len(imported_tasks)} задач из {file}![/green]")
+                            print(f"[green]Успешно импортировано {len(imported_tasks)} задач из {file}![/green]" if len(imported_tasks) > 0 else "[red]Файл пустой![/red]")
                         except json.JSONDecodeError:
                             print("[red]Неправильный JSON файл![/red]")
                     else:
