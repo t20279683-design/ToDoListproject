@@ -3,7 +3,7 @@ import json
 def taskslist():
     tasks = []
     inp = input("Choose lang RU or EN (Русский или Английский): ")
-    if inp.lower() == "en":
+    if inp.lower() == "en" or inp.lower() == "английский":
         while True:
             print("")
             print(r"[red]1.[/red] [green]Add task[/green]")
@@ -92,7 +92,7 @@ def taskslist():
                 print('[bright_green]successfully[/bright_green] [yellow]exported in tasks.json![/yellow]')
             else:
                 print("[red]Invalid command[/red]")
-    elif inp.lower() == "ru":
+    elif inp.lower() == "ru" or inp.lower() == 'русский':
         while True:
             print("")
             print(r"[red]1.[/red] [green]Добавить задачу[/green]")
